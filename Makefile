@@ -59,7 +59,7 @@ cflags   =  $(optflags) $(debugflags) $(warnflags)
 optflags = -O3
 debugflags = -g
 warnflags = -Wextra -Wno-unused-parameter -Wno-parentheses -Wpointer-arith -Wwrite-strings -Wno-missing-field-initializers -Wno-long-long
-CFLAGS   =  $(cflags) -Ibwdi -fpermissive 
+CFLAGS   =  $(cflags) -Wall -Ibwdi -fpermissive 
 INCFLAGS = -I. -I$(arch_hdrdir) -I$(hdrdir)/ruby/backward -I$(hdrdir) -I$(srcdir)
 DEFS     = 
 CPPFLAGS =   $(DEFS) $(cppflags)
@@ -94,8 +94,8 @@ COPY = cp
 
 preload = 
 
-libpath = . $(libdir) bwdi/DEBUG
-LIBPATH =  -L. -L$(libdir) -Lbwdi/DEBUG
+libpath = . $(libdir)
+LIBPATH =  -L. -L$(libdir)
 DEFFILE = $(TARGET)-$(arch).def
 
 CLEANFILES = mkmf.log $(DEFFILE)

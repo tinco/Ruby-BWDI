@@ -1,6 +1,7 @@
 require 'mkmf'
 
-$CFLAGS << " -Ibwdi -fpermissive" 
-abort unless find_library 'BWDI', nil, 'bwdi/DEBUG'
+$CFLAGS << " -Wall -Ibwdi -fpermissive"
+
+abort unless find_library 'BWDI', nil
 
 create_makefile 'RubyBWAPIClient'
