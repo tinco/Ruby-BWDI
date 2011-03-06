@@ -59,7 +59,7 @@ cflags   =  $(optflags) $(debugflags) $(warnflags)
 optflags = -O3
 debugflags = -g
 warnflags = -Wextra -Wno-unused-parameter -Wno-parentheses -Wpointer-arith -Wwrite-strings -Wno-missing-field-initializers -Wno-long-long
-CFLAGS   =  $(cflags) 
+CFLAGS   =  $(cflags) -Ibwdi -fpermissive 
 INCFLAGS = -I. -I$(arch_hdrdir) -I$(hdrdir)/ruby/backward -I$(hdrdir) -I$(srcdir)
 DEFS     = 
 CPPFLAGS =   $(DEFS) $(cppflags)
@@ -94,8 +94,8 @@ COPY = cp
 
 preload = 
 
-libpath = . $(libdir)
-LIBPATH =  -L. -L$(libdir)
+libpath = . $(libdir) bwdi/DEBUG
+LIBPATH =  -L. -L$(libdir) -Lbwdi/DEBUG
 DEFFILE = $(TARGET)-$(arch).def
 
 CLEANFILES = mkmf.log $(DEFFILE)
@@ -106,7 +106,7 @@ extout =
 extout_prefix = 
 target_prefix = 
 LOCAL_LIBS = 
-LIBS = $(LIBRUBYARG_SHARED)  -lshell32 -lws2_32  
+LIBS = $(LIBRUBYARG_SHARED) -lBWDI  -lshell32 -lws2_32  
 SRCS = ruby_ai_client.cpp
 OBJS = ruby_ai_client.o
 TARGET = RubyBWAPIClient
