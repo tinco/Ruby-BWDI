@@ -55,7 +55,7 @@ namespace RubyBDWI {
 }
 
 extern "C"
-void Init_RubyBWAPIClient() {
+void Init_RubyBWDI() {
   VALUE m = rb_define_module("RubyBWDI");
   rb_define_singleton_method(m, "run", (RubyFunction)RubyBDWI::initialize, 1);
 }
