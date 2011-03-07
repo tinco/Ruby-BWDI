@@ -20,7 +20,7 @@ namespace RubyBDWI {
   static VALUE initialize(VALUE self, VALUE ai) {
     BWDI::SessionInfo info;
     info.usingBWDIVersion = 0;
-    strncpy(info.moduleName, "Test", sizeof(info.moduleName));
+    strncpy(info.moduleName, "RubyBWDI", sizeof(info.moduleName));
     info.allowMultipleSlots = true;
     info.allowProtoss = true;
     info.allowTerran = true;
@@ -57,5 +57,5 @@ namespace RubyBDWI {
 extern "C"
 void Init_RubyBWAPIClient() {
   VALUE m = rb_define_module("RubyBWDI");
-  rb_define_singleton_method(m, "initialize", (RubyFunction)RubyBDWI::initialize, 1);
+  rb_define_singleton_method(m, "run", (RubyFunction)RubyBDWI::initialize, 1);
 }
