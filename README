@@ -20,4 +20,4 @@ Note that this is still in development, I'll accept any nice patches :P
 
 When I feel like it I will fix the rather annoying compile process by figuring paths so that you don't have to move files around, and perhaps a nice rake file.
 
-This project is MIT X/11 licensed.
+This project is MIT/X11 licensed.
