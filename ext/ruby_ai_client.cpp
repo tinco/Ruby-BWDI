@@ -1,20 +1,15 @@
-#include "ruby.h"
-#include <stdio.h>
+#include <ruby_bwdi.h>
+#include <object_cache.h>
+#include <ruby_static_set.h>
 
-#include <windows.h>
+VALUE mBWDI;
+BWDI::StaticGameData *sgd;
 
-#include <string>
+void Init_Game();
 
-// some debugging stuff:
-#define _ASSERT(expr)
+VALUE cGame;
 
-#include <UTIL/Exceptions.h>
-#include <BWDI.h>
-
-typedef VALUE(*RubyFunction)(ANYARGS);
-
-namespace RubyBDWI {
-  BWDI::StaticGameData *sgd;
+namespace RubyBWDI {
   VALUE game;
 
   static VALUE initialize(VALUE self, VALUE ai) {
@@ -26,7 +21,7 @@ namespace RubyBDWI {
     info.allowTerran = true;
     info.allowZerg = true;
     BWDI::SessionHandle session = BWDI::BWDICreate(&info);
-    game = Qnil;
+    game = rb_funcall(cGame, rb_intern("new"), 0);
     
     // position of global info output
     BWDI::Position statPos;
@@ -56,6 +51,17 @@ namespace RubyBDWI {
 
 extern "C"
 void Init_RubyBWDI() {
-  VALUE m = rb_define_module("RubyBWDI");
-  rb_define_singleton_method(m, "run", (RubyFunction)RubyBDWI::initialize, 1);
+  mBWDI = rb_define_module("RubyBWDI");
+  rb_define_singleton_method(mBWDI, "run", (RubyFunction)RubyBWDI::initialize, 1);
+  Init_Static_Set();
+  Init_Game();
+}
+
+VALUE g_PlayerId(VALUE self) { return INT2FIX(sgd->self); }
+
+void Init_Game() {
+  cGame = rb_define_class_under(mBWDI, "Game", rb_cObject);
+  rb_define_method(cGame, "player_id", (RubyFunction)g_PlayerId, 0);
+  VALUE unit_array = SS_initialize<BWDI::UnitState, BWDI::unitMaxCount>(&sgd->units);
+  rb_define_const(cGame, "Units", unit_array);
 }

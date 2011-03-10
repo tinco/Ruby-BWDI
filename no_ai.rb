@@ -7,7 +7,7 @@ module AI
     def start(game)
       @starcraft = game
       @frame = 0
-      puts "match started"
+      puts "match started, player_id: #{game.player_id}"
     end #start
 
     def on_frame
@@ -16,6 +16,10 @@ module AI
         puts "had 24 frames"
       end
     end #on_frame
+
+    def end
+      puts "Match ended"
+    end
   end
   RubyBWDI.run(NoAI.new)
 end #module AI
