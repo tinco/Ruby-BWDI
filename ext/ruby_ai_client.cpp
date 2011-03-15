@@ -29,7 +29,7 @@ namespace RubyBWDI {
       // synch with BWDI
       BWDI::SessionState sstate = BWDI::BWDIWaitForNextEvent();
       if(sstate == BWDI::SessionState_InternalError) {
-        rb_funcall(ai, rb_intern("end"), 0);
+        rb_funcall(ai, rb_intern("finish"), 0);
         return Qfalse;
       }
 
@@ -63,5 +63,5 @@ void Init_Game() {
   cGame = rb_define_class_under(mBWDI, "Game", rb_cObject);
   rb_define_method(cGame, "player_id", (RubyFunction)g_PlayerId, 0);
   VALUE unit_array = SS_initialize<BWDI::UnitState, BWDI::unitMaxCount>(&sgd->units);
-  rb_define_const(cGame, "Units", unit_array);
+  rb_define_const(cGame, "UnitStates", unit_array);
 }
