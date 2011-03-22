@@ -1,6 +1,7 @@
 #include <ruby_bwdi.h>
 #include <object_cache.h>
 #include <ruby_static_set.h>
+#include <rb_unit_state.h>
 
 VALUE mBWDI;
 BWDI::StaticGameData *sgd;
@@ -55,6 +56,7 @@ void Init_RubyBWDI() {
   rb_define_singleton_method(mBWDI, "run", (RubyFunction)RubyBWDI::initialize, 1);
   Init_Static_Set();
   Init_Game();
+  Init_UnitState();
 }
 
 VALUE g_PlayerId(VALUE self) { return INT2FIX(sgd->self); }

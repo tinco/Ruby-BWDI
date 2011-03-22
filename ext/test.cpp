@@ -1,17 +1,20 @@
 #include <iostream>
-template <class T>
-T do_it(T h) {
-  std::cout << "Hello World!" << std::endl;
-  return do_it_again(h);
+#include <string>
+#include <sstream>
+using namespace std;
+
+template<typename T, typename C, T C::*M>
+T getMember2(C * us) {
+  return (us->*M);
 }
 
-template <class T>
-T do_it_again(T h) {
-  std::cout << "Hello World!" << std::endl;
-  return h;
-}
+struct MyStruct {
+  int myInt;
+} str;
 
 int main() {
-  std::cout << "Hello World!" << std::endl;
-  return do_it<int>(0);
+  str.myInt = 5;
+  int myInt = getMember2<int, MyStruct, &MyStruct::myInt>(&str);
+  cout << " (" << myInt << ")\n";
+  return 0;
 }
