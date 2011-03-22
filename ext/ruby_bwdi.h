@@ -23,6 +23,6 @@ VALUE getStructMember(VALUE self) {
 #define DEFINE_GETTER(THIS, FUNCNAME, TYPE, STRUCT, MEMBER) \
 if(false) \
 { \
-getStructMember<TYPE, STRUCT, &MEMBER>(Qnil); \
+getStructMember<TYPE, STRUCT, &STRUCT::MEMBER>(Qnil); \
 } \
-rb_define_method(THIS, FUNCNAME, (RubyFunction)getStructMember<TYPE, STRUCT, &MEMBER>, 0);
+rb_define_method(THIS, FUNCNAME, (RubyFunction)getStructMember<TYPE, STRUCT, &STRUCT::MEMBER>, 0);

@@ -10,7 +10,7 @@ using namespace BWDI;
 void Init_UnitState() {
   VALUE mBWDI = rb_define_module("RubyBWDI");
   VALUE cUnitState = rb_define_class_under(mBWDI, "UnitState", rb_cObject);
-  DEFINE_GETTER(cUnitState, "hitpoints", int, UnitStateVisible, UnitStateVisible::hitPoints);
+  DEFINE_GETTER(cUnitState, "hitpoints", int, UnitStateVisible, hitPoints);
 }
 
 VALUE rb_wrap_unit_state(BWDI::UnitState * us) {
