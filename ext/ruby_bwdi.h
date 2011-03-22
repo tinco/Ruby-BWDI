@@ -13,7 +13,7 @@
 
 typedef VALUE(*RubyFunction)(ANYARGS);
 
-template<T C::*M, VALUE (*PREPARE)(T), typename T, typename C>
+template<typename T, typename C, T C::*M, VALUE (*PREPARE)(T)>
 VALUE getMember(VALUE self) {
   C * us;
   Data_Get_Struct(self, C, us);
@@ -23,6 +23,6 @@ VALUE getMember(VALUE self) {
 #define DEFINE_GETTER(THIS, FUNCNAME, MEMBER, PREPARE) \
 if(false) \
 { \
-getMember<&MEMBER, PREPARE>(0); \
+getMember<int, BWDI::UnitState, &MEMBER, PREPARE>(Qnil); \
 } \
-rb_define_method(THIS, FUNCNAME, (RubyFunction)getMember<&MEMBER, PREPARE>, 0);
+rb_define_method(THIS, FUNCNAME, (RubyFunction)getMember<int, BWDI::UnitState, &MEMBER, PREPARE>, 0);
