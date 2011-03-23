@@ -13,12 +13,15 @@
 
 typedef VALUE(*RubyFunction)(ANYARGS);
 
+template<typename T> VALUE prepareValue(T value);
+
 template<typename T, typename C, T C::*M>
 VALUE getStructMember(VALUE self) {
   C * str;
   Data_Get_Struct(self, C, str);
-  return INT2FIX(str->*M);
+  return prepareValue<T>(str->*M);
 }
+
 
 #define DEFINE_GETTER(THIS, FUNCNAME, TYPE, STRUCT, MEMBER) \
 if(false) \
