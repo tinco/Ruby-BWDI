@@ -1,4 +1,4 @@
 template <class T>
-VALUE getCached(T element) {
+VALUE getCached(int element_id) {
   return Qnil;
 }

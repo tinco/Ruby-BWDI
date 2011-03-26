@@ -3,18 +3,28 @@
 #include <sstream>
 using namespace std;
 
-template<typename T, typename C, T C::*M>
-T getMember2(C * us) {
-  return (us->*M);
-}
+template <typename T>
+struct is_pointer_impl {
+   static void is() {
+     cout<<"no ";
+ }
+}; 
+template <typename T>
+struct is_pointer_impl<T*> {
+   static void is() {
+     cout<<"yes ";
+  }
+};
 
-struct MyStruct {
-  int myInt;
-} str;
+ template <typename T> 
+   void isPointer() {
+     is_pointer_impl<T>::is();
+ }
+
 
 int main() {
-  str.myInt = 5;
-  int myInt = getMember2<int, MyStruct, &MyStruct::myInt>(&str);
-  cout << " (" << myInt << ")\n";
+  isPointer<int>();
+  isPointer<int*>();  
   return 0;
 }
+
